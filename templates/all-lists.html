@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<header
+  class="masthead"
+  style="background-image: url('../static/assets/img/bg.jpg')"
+>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>My saved lists</h1>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<body style="background-image:url('../static/assets/img/white_paper.jpg');
+            background-size: cover">
+<div class="main">
+{% for list in lists %}
+  <div class="child">
+
+  <a href="{{url_for('delete_list', list_id=list.id)}}" title="Remove list" class="btn btn-light rounded-pill px-3" name="delete" type="button">{{list.name}}
+    <mark style="background-color: grey"><b>{{list.tasks|length}}</b></mark>  ❌
+  </a>
+  </div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
+</body>

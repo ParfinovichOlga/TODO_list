@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+{{ bootstrap.load_css() }}
+<body style="background-image:url('../static/assets/img/white_paper.jpg');
+            background-size: cover">
+{% autoescape true %}
+<div class="container">
+  <div class="row">
+    <form method="post" action="{{url_for('update_list', list_id=data.id)}}">
+        <div class="input-group mb-3">
+            {% if not completed %}
+                <label for="name">List's name:  </label>
+                <input style="color:blue"  type="text" class="form-control" value="{{data.name}}" placeholder="Change and press Enter"  name="name" aria-describedby="basic-addon1" >
+            {% else %}
+                <label> {{data.name}}</label>
+            {% endif %}
+        </div>
+    </form>
+
+
+    <form method="post" action="{{url_for('add_task',list_id=data.id)}}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Write your next task here...Then press Enter" name="next_task" aria-describedby="basic-addon1">
+        </div>
+    </form>
+
+    <form method="post" action="{{url_for('update_list', list_id=data.id)}}">
+    {% for task in data.tasks %}
+        {% if task.done %}
+            <label class="list-group-item d-flex gap-2">
+                <input type="checkbox" checked="checked" disabled="true">
+                <span style="text-decoration: line-through; color:grey" >{{task.description}}</span>
+                <span tyle="color:grey">{{task.deadline}}</span>
+            </label>
+        {% else %}
+            <label class="list-group-item d-flex gap-2">
+                <input class="checkbox" id="done" type="checkbox" name="done" value="{{task.id}}">
+            <span>
+              <textarea cols="70" rows="1" name="description">{{task.description}}</textarea>
+            </span>
+            <input type="date"  name="deadline" value="{{task.deadline}}" class="tcal">
+            <button type="button" type="submit" class="btn"> </button>
+            </label>
+        {% endif %}
+    {% endfor %}
+        {% if not completed %}
+            <button  type="submit" style="background-color:green; color:white"> Save</button>
+        {% endif %}
+    </form>
+
+</div>
+</div>
+{% endautoescape %}
+{% endblock %}
+</body>

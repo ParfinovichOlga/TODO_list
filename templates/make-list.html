@@ -1,0 +1,34 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% extends "base.html" %}
+{% block content %}
+
+<header
+  class="masthead"
+  style="background-image: url('../static/assets/img/edit-bg.jpg')"
+>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          {% if is_edit: %}
+          <h1>Edit Task</h1>
+          {% else: %}
+          <h1>New List</h1>
+          {% endif %}
+          <span class="subheading">
+            You're going to create a new to-do list!
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<body style="background-image:url('../static/assets/img/white_paper.jpg');
+            background-size: cover">
+  <form method="post" action="{{url_for('create_list')}}">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Type here your first task of the list" name="description" aria-describedby="basic-addon1">
+    </div>
+  </form>
+{% endblock %}
+</body>

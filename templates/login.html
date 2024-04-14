@@ -1,0 +1,37 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% extends "base.html" %}
+{% block content %}
+
+<header
+  class="masthead"
+  style="background-image: url('../static/assets/img/bg.jpg')"
+>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>Log In</h1>
+          <span class="subheading">Log in to save and access your lists</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<br>
+<main class="mb-4">
+  <div class="container">
+    <div class="row">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <ul class="flash" style="color:red">{{ message }}</ul>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {{ render_form(form, novalidate=True, button_map={"submit": "primary"}, form_type='horizontal', horizontal_columns=('sm',2, 5)) }}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+<body style="background-image: url('../static/assets/img/bg.jpg');
+            background-size: cover">
+{% if not current_user.is_authenticated: %}
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img src="./static/assets/img/checked.svg" class="d-block mx-lg-auto img-fluid" alt="Checked sign" width="300" height="150" loading="lazy">
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Here your space to create lists of task TODO</h1>
+            <a href="{{url_for('login')}}" class="lead">Login to start!</a>
+          </div>
+        </div>
+      </div>
+{% else %}
+    <div class="d-flex flex-column align-items-stretch flex-shrink-0 " style="width: 580px;">
+        <h2 style="color:white">{{current_user.name}}, there are your lists of tasks TODO</h2>
+{% endif %}
+{% if lists %}
+    <div class="list-group list-group-flush border-bottom scrollarea">
+        {% for list in lists %}
+      <a href="{{url_for('all_task', list_id=list.id)}}" class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true" style="opacity: 0.6; background-color:#778899; border-color:white">
+        <div class="d-flex w-100 align-items-center justify-content-between" >
+          <strong class="mb-1">{{list.name}}</strong>
+          <small>{{list.tasks|length}}</small>
+        </div>
+      </a>
+        {% endfor %}
+    </div>
+{% endif %}
+  </div>
+{% endblock %}
+</body>
